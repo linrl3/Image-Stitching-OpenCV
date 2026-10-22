@@ -1,4 +1,7 @@
 # Image-Stitching-OpenCV
+
+[![CI](https://github.com/linrl3/Image-Stitching-OpenCV/actions/workflows/ci.yml/badge.svg?branch=new)](https://github.com/linrl3/Image-Stitching-OpenCV/actions/workflows/ci.yml)
+
 Simple image stitching algorithm using SIFT, homography, KNN and RANSAC in Python.
 
 The project is to implement a featured based automatic image stitching algorithm. When we input two images with overlapped fields, we expect to obtain a wide seamless panorama.
@@ -91,6 +94,30 @@ uv run python -m unittest discover -s tests -v
 After intentionally changing dependencies, run `uv lock` and commit both
 `pyproject.toml` and `uv.lock`. For a reproducible environment, use
 `uv sync --locked`. See [uv's project guide](https://docs.astral.sh/uv/guides/projects/).
+
+## Continuous integration
+
+The [CI workflow](.github/workflows/ci.yml) runs on pushes, pull requests and manual
+dispatches from the GitHub Actions tab. It uses uv 0.9.17 and checks:
+
+- Locked dependency installation, the test suite and the installed CLI on Linux
+  with Python 3.10, 3.12 and 3.14, and on macOS and Windows with Python 3.12.
+- Source distribution and wheel builds after all test jobs pass.
+- Installation of the wheel with locked runtime dependencies into a clean
+  environment, followed by a CLI check outside the source checkout.
+
+Successful runs provide the wheel and source archive as a `python-distributions`
+artifact, available for 14 days from the run page. The workflow does not publish
+to PyPI or deploy a service.
+
+To reproduce the primary checks locally:
+
+```sh
+uv sync --locked
+uv run --locked python -m unittest discover -s tests -v
+uv run --locked image-stitching --help
+uv build --no-sources
+```
 
 ## Sample 
 
