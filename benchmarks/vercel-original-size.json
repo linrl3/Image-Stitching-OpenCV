@@ -1,0 +1,133 @@
+{
+  "schema_version": 1,
+  "inputs": [
+    {
+      "path": "images/q11.jpg",
+      "sha256": "d842fd955ebee86a19b99addb6e6314130d70abb0ba1adf1bada2ca755d909d5"
+    },
+    {
+      "path": "images/q22.jpg",
+      "sha256": "99b9cc60973cb09d566d1c66518a332dca64cec8a5512ae9d6b02c8075c3990b"
+    }
+  ],
+  "measurement": {
+    "memory": "Fresh worker process RSS, sampled every 10 ms; short peaks may be missed.",
+    "timing": "Per-stage wall time; process_wall_seconds also includes interpreter startup.",
+    "matching_visualization": false,
+    "repeats": 1
+  },
+  "summary": [
+    {
+      "scale": 1.0,
+      "successful_runs": 1,
+      "median_compute_seconds": 3.059507499972824,
+      "max_sampled_peak_rss_bytes": 2683994112
+    }
+  ],
+  "runs": [
+    {
+      "schema_version": 1,
+      "status": "success",
+      "environment": {
+        "python": "3.12.12",
+        "opencv": "4.14.0",
+        "numpy": "2.5.4",
+        "platform": "macOS-27.0.1-arm64-arm-64bit",
+        "opencv_threads": 12
+      },
+      "config": {
+        "ratio": 0.85,
+        "min_match": 10,
+        "smoothing_window_size": 800,
+        "ransac_reprojection_threshold": 5.0
+      },
+      "timings_seconds": {
+        "features": 0.8021342499996535,
+        "matching": 0.3743346669944003,
+        "homography": 0.014040458016097546,
+        "diagnostics": 0.027389499999117106,
+        "blend_left": 0.284707291983068,
+        "warp": 0.01822970900684595,
+        "blend_right": 0.1901618330157362,
+        "crop": 1.3470983330043964,
+        "compute_total": 3.059507499972824,
+        "read": 0.049660292046610266,
+        "resize": 7.909839041531086e-07,
+        "encode": 0.046873125014826655,
+        "worker_total": 3.1561266670469195
+      },
+      "inputs": [
+        {
+          "width": 2448,
+          "height": 3264,
+          "dtype": "uint8"
+        },
+        {
+          "width": 2448,
+          "height": 3264,
+          "dtype": "uint8"
+        }
+      ],
+      "features": {
+        "image1": 16588,
+        "image2": 9321
+      },
+      "matches": {
+        "knn_queries": 16588,
+        "ratio_passed": 1516
+      },
+      "registration": {
+        "homography_image2_to_image1": [
+          [
+            0.6478546300867343,
+            0.01018766304391049,
+            1190.8824555138353
+          ],
+          [
+            -0.24447774618347157,
+            0.9140641672340217,
+            145.51020102402074
+          ],
+          [
+            -0.0001440589317121602,
+            3.222059594090484e-06,
+            1.0
+          ]
+        ],
+        "inliers": 379,
+        "inlier_ratio": 0.25,
+        "median_inlier_error_px": 1.0585918426513672,
+        "p95_inlier_error_px": 2.8108463287353516
+      },
+      "geometry": {
+        "canvas_width": 4896,
+        "canvas_height": 3264,
+        "warped_image2_bounds": [
+          1190.8824462890625,
+          -699.7384643554688,
+          4289.57666015625,
+          3846.61181640625
+        ],
+        "extends_beyond_canvas": true
+      },
+      "output": {
+        "width": 4287,
+        "height": 3264,
+        "dtype": "float64",
+        "crop_bounds": [
+          0,
+          0,
+          4287,
+          3264
+        ]
+      },
+      "scale": 1.0,
+      "repetition": 1,
+      "sampled_peak_rss_bytes": 2683994112,
+      "process_wall_seconds": 3.4061391659779474
+    }
+  ],
+  "recorded_at_utc": "2026-10-22T16:30:19.116696+00:00",
+  "scope": "Local resource measurement only; not executed on Vercel. Matching visualization disabled.",
+  "sample_panorama_png_bytes": 15107570
+}

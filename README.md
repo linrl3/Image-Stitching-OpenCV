@@ -107,10 +107,12 @@ main("images/q11.jpg", "images/q22.jpg", "output/panorama.jpg", matching_output=
 uv run --locked --extra web image-stitching-web
 ```
 
-Open **http://127.0.0.1:7860**. Choose two images, swap their order if needed, then
-stitch and inspect the panorama, feature matches and diagnostic metrics. Download
-the full-resolution PNG and JSON report; failure reports can also be downloaded
-from the diagnostic details. Use `--port 7861` to choose another port.
+Open **http://127.0.0.1:7860**. Choose two images, stitch, then download the PNG.
+The **中文 / EN** switch translates controls, status and errors without resetting
+your images or result. The initial language follows your browser; your choice is
+remembered locally. Feature matches, metrics and the JSON report are under
+**Details / 详情**, collapsed by default. Failure reports have a download link
+beside the error message. Use `--port 7861` to choose another port.
 
 The server binds only to loopback, processes on your computer and requires no
 external frontend services. It handles one stitch at a time and retains only the
@@ -118,12 +120,23 @@ latest successful result in memory; starting another successful stitch invalidat
 older download URLs. Stopping the server clears results. Uploads are limited to
 32 MiB per request and 12 million pixels per image.
 
-In a repository checkout, **试用建筑示例 · 原尺寸** runs `q11.jpg` and `q22.jpg` at
+In a repository checkout, **Try example / 试用示例** runs `q11.jpg` and `q22.jpg` at
 their original 2448×3264 size. Only display previews are reduced. Resizing the
 inputs changes feature matches and the relative width of the fixed 800-pixel
 blend, so a half-size computation is not an equivalent preview of the full-size
 result. Historic OpenCV versions may produce slightly different output geometry.
 The sample photos are not bundled into the wheel.
+
+### Vercel deployment
+
+Vercel supports Flask, but this local application needs deployment changes first.
+The original-size example produces a PNG of about 15.1 MB and used about 2.50 GiB
+peak sampled RSS in a local measurement. These conflict with the default function
+payload/memory budgets, and the current in-process result store cannot reliably
+serve downloads across function instances. A practical option is to host the
+frontend on Vercel and run OpenCV in a separate container, with object storage for
+uploads/results. See the [deployment assessment](docs/vercel.md) for measurements,
+official limits and the required changes. No cloud deployment is configured yet.
 
 ## Performance measurements
 

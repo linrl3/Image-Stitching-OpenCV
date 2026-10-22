@@ -64,7 +64,7 @@ def create_app():
                 if not sample_available:
                     return error_response('Sample images are available in the repository checkout.', 'sample_unavailable', 404)
                 images = [read_image(samples / name) for name in ('q11.jpg', 'q22.jpg')]
-                names = ['q11.jpg · 原尺寸', 'q22.jpg · 原尺寸']
+                names = ['q11.jpg', 'q22.jpg']
                 if request.form.get('reverse') == 'true':
                     images.reverse()
                     names.reverse()

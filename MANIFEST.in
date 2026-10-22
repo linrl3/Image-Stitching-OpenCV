@@ -1,3 +1,4 @@
 include .python-version uv.lock
 include images/q11.jpg images/q22.jpg images/panorama.jpg
 recursive-include benchmarks *.md *.json
+recursive-include docs *.md
