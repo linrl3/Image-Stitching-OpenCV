@@ -557,5 +557,146 @@
     ],
     "dtype": "float64",
     "all_web_image_downloads_byte_identical": true
+  },
+  "linux_ci": {
+    "commit": "e3c376dc0a6c83c91946cc8c6303af337bf6eae4",
+    "run_url": "https://github.com/linrl3/Image-Stitching-OpenCV/actions/runs/39818060755",
+    "artifact": "regression-ubuntu-latest-py3.12",
+    "environment": {
+      "python": "3.12.3",
+      "opencv": "4.14.0",
+      "numpy": "2.5.4",
+      "platform": "Linux-7.0.0-1017-azure-x86_64-with-glibc2.39",
+      "opencv_threads": 4
+    },
+    "measurement": "One fresh core worker per scale, and one fresh web worker with three sequential original-size requests; RSS sampled every 10 ms. Not Vercel.",
+    "core_summary": [
+      {
+        "scale": 0.5,
+        "successful_runs": 1,
+        "median_compute_seconds": 0.5412894930000007,
+        "max_sampled_peak_rss_bytes": 586067968
+      },
+      {
+        "scale": 1.0,
+        "successful_runs": 1,
+        "median_compute_seconds": 3.4466715610000023,
+        "max_sampled_peak_rss_bytes": 2023043072
+      }
+    ],
+    "web_peak_rss_bytes": 2038898688,
+    "web_requests": [
+      {
+        "request": 1,
+        "output": {
+          "crop_bounds": [
+            0,
+            0,
+            4290,
+            3264
+          ],
+          "dtype": "float64",
+          "height": 3264,
+          "width": 4290
+        },
+        "web_request_total_seconds": 4.247654062999999,
+        "files": {
+          "input1.jpg": {
+            "bytes": 202145,
+            "sha256": "113c1b0ccef6f736165e8178d2ee7b6f9bc44c9762ffbc949caeadf02b29c766"
+          },
+          "input2.jpg": {
+            "bytes": 186195,
+            "sha256": "7d432ec8362e15dbb114670fef8e1820f93527227d4fa7b7ee96ecc7a2aabec4"
+          },
+          "matching.jpg": {
+            "bytes": 5355567,
+            "sha256": "a5fe2fac25871cc1c80e379ebc808fd19187939cf617dbcd248aef1b84325bc0"
+          },
+          "panorama.png": {
+            "bytes": 15114443,
+            "sha256": "90e9f76c3437d8ca4dcb657e654aedec54b320a9bd0bb61d8f3f877e6064caa8"
+          },
+          "report.json": {
+            "bytes": 2226,
+            "sha256": "d49052ea8e6afb7127c21b481b5764de59f42fb48f62358a2a8f6e92b8f718c1"
+          }
+        }
+      },
+      {
+        "request": 2,
+        "output": {
+          "crop_bounds": [
+            0,
+            0,
+            4290,
+            3264
+          ],
+          "dtype": "float64",
+          "height": 3264,
+          "width": 4290
+        },
+        "web_request_total_seconds": 4.258862562999994,
+        "files": {
+          "input1.jpg": {
+            "bytes": 202145,
+            "sha256": "113c1b0ccef6f736165e8178d2ee7b6f9bc44c9762ffbc949caeadf02b29c766"
+          },
+          "input2.jpg": {
+            "bytes": 186195,
+            "sha256": "7d432ec8362e15dbb114670fef8e1820f93527227d4fa7b7ee96ecc7a2aabec4"
+          },
+          "matching.jpg": {
+            "bytes": 5355567,
+            "sha256": "a5fe2fac25871cc1c80e379ebc808fd19187939cf617dbcd248aef1b84325bc0"
+          },
+          "panorama.png": {
+            "bytes": 15114443,
+            "sha256": "90e9f76c3437d8ca4dcb657e654aedec54b320a9bd0bb61d8f3f877e6064caa8"
+          },
+          "report.json": {
+            "bytes": 2227,
+            "sha256": "bfb0590beb59dcb855ee7ea0a735c5a1b63c827791dec094bc7bd3981e312043"
+          }
+        }
+      },
+      {
+        "request": 3,
+        "output": {
+          "crop_bounds": [
+            0,
+            0,
+            4290,
+            3264
+          ],
+          "dtype": "float64",
+          "height": 3264,
+          "width": 4290
+        },
+        "web_request_total_seconds": 4.165834891000003,
+        "files": {
+          "input1.jpg": {
+            "bytes": 202145,
+            "sha256": "113c1b0ccef6f736165e8178d2ee7b6f9bc44c9762ffbc949caeadf02b29c766"
+          },
+          "input2.jpg": {
+            "bytes": 186195,
+            "sha256": "7d432ec8362e15dbb114670fef8e1820f93527227d4fa7b7ee96ecc7a2aabec4"
+          },
+          "matching.jpg": {
+            "bytes": 5355567,
+            "sha256": "a5fe2fac25871cc1c80e379ebc808fd19187939cf617dbcd248aef1b84325bc0"
+          },
+          "panorama.png": {
+            "bytes": 15114443,
+            "sha256": "90e9f76c3437d8ca4dcb657e654aedec54b320a9bd0bb61d8f3f877e6064caa8"
+          },
+          "report.json": {
+            "bytes": 2219,
+            "sha256": "406c09eb59e85bda68882510b2bd5c61becc2b7656b1a3f4202f1e6d0793e1f5"
+          }
+        }
+      }
+    ]
   }
 }

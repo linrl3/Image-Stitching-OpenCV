@@ -47,6 +47,16 @@ accounts for substantial native temporary memory. No inputs are resized, no
 float precision is reduced, and OpenCV's thread count is unchanged. These local
 results do not establish that the workload fits a 2 GB hosted function.
 
+The follow-up [Linux CI run](https://github.com/linrl3/Image-Stitching-OpenCV/actions/runs/39818060755)
+measured about **1.88 GiB** for one fresh original-size core run and **1.90 GiB**
+for three consecutive web requests in a fresh process. Python 3.12.3,
+Linux/x86_64, glibc 2.39 and four OpenCV threads differ from the macOS environment;
+the values cannot be used as a paired before/after comparison. The report's
+`linux_ci` section records the environment, measurements and image hashes.
+This is close to a 2 GB function budget and only covers the approximately
+8-megapixel example, not every input allowed by the 12-megapixel web limit.
+Vercel runtime overhead, real concurrency and larger inputs still need testing.
+
 ## Before/after comparison
 
 [baseline.json](baseline.json) compares the script at commit

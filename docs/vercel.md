@@ -13,7 +13,7 @@ stitching and subsequent downloads work.
 | --- | --- | --- |
 | Uploads | The local limit is 32 MiB; the sample pair totals 3,641,533 bytes | Function request bodies are limited to 4.5 MB. The sample fits, but the advertised upload limit does not. |
 | Downloads | The original-size sample PNG is 15,107,570 bytes | The response exceeds the 4.5 MB function payload limit. Store large results outside the function and download directly. |
-| Memory | After optimization, three fresh original-size computation runs reached about 2.30 GiB; three consecutive web requests reached about 2.40 GiB | Hobby functions have 2 GB; Pro/Enterprise allow up to 4 GB. These local results still exceed Hobby's budget; target-runtime testing is needed before deciding whether a paid compute tier is necessary. |
+| Memory | After optimization, macOS measurements reached about 2.30 GiB for core and 2.40 GiB for repeated web requests. Linux CI measured about 1.88 GiB and 1.90 GiB respectively. | Hobby functions have 2 GB; Pro/Enterprise allow up to 4 GB. Linux results are close to the Hobby budget. Actual Vercel testing with larger allowed inputs is needed before deciding whether a paid compute tier is necessary. |
 | Runtime | Median compute time was about 0.94 seconds in the fresh-process comparison | Time is not the observed bottleneck locally. Fluid Compute allows 300 seconds on Hobby; this is not a deployed-runtime benchmark. |
 | Result state | `create_app()` retains the latest encoded result in one Python process | A download can reach a different instance or run after state is discarded. Use per-job shared storage. |
 | Static assets | Flask currently serves packaged CSS/JS | Vercel's Flask integration expects static files under `public/`. |
@@ -33,6 +33,9 @@ checks are in [memory-optimization.json](../benchmarks/memory-optimization.json)
 with reproduction commands in [benchmarks/README.md](../benchmarks/README.md).
 The earlier single-run 2.50 GiB observation is retained in
 [vercel-original-size.json](../benchmarks/vercel-original-size.json).
+The follow-up Linux CI observation is recorded in the comparison report's
+`linux_ci` section. It covers the approximately 8-megapixel sample, not the web
+interface's full 12-megapixel allowance or concurrent hosted requests.
 
 Reproduce the compute measurement:
 
@@ -59,10 +62,12 @@ with the chosen upload path. User photos should have private, expiring download
 URLs. None of these changes require changing SIFT, matching, homography or blending.
 
 Keeping the computation on Vercel is another option after adding object storage:
-test a suitably sized Pro/Enterprise Python function, move assets into `public/`,
+test the Hobby Python runtime first with explicit input and concurrency limits,
+move assets into `public/`,
 provide a Flask entrypoint, install the web extra, and validate the Linux bundle
-and full-resolution request lifecycle. This costs more and still requires the
-storage/job changes; adding only `vercel.json` would not solve the blockers.
+and full-resolution request lifecycle. A larger paid tier is an option if actual
+measurements require it, not an established prerequisite. The storage/job changes
+are still required; adding only `vercel.json` would not solve the blockers.
 
 Do not shrink the inputs silently to fit a deployment budget. The fixed blending
 window and feature matching make scaled inputs produce different panoramas.

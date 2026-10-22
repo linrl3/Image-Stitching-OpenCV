@@ -133,7 +133,9 @@ Vercel supports Flask, but this local application needs deployment changes first
 The original-size example produces a PNG of about 15.1 MB. After memory
 optimization, local measurements reached about 2.30 GiB for the computation
 benchmark and 2.40 GiB for repeated web uploads/downloads. These still exceed the
-Hobby function memory budget locally; the target runtime needs its own measurement.
+Hobby function memory budget locally. Linux CI measured about 1.88 GiB for the
+core and 1.90 GiB for repeated web requests, close to the 2 GB budget; Vercel
+itself and larger allowed inputs still need measurement before choosing a tier.
 The PNG exceeds the function payload limit even on paid plans, and the current
 in-process result store cannot reliably
 serve downloads across function instances. A practical option is to host the
