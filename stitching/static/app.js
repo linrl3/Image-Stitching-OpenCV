@@ -1,6 +1,6 @@
 const messages = {
   zh: {
-    title: '图片拼接', language: '语言', left: '左图', right: '右图',
+    title: '图片拼接', language: '语言', github: '查看 GitHub 仓库（在新标签页打开）', left: '左图', right: '右图',
     choose: '选择图片', chooseLeft: '选择左图', chooseRight: '选择右图', swap: '交换左右',
     leftPreview: '左图预览', rightPreview: '右图预览', panoramaPreview: '全景预览', matchingPreview: '特征匹配图',
     limits: '左图 ≥ 800 px · 合计 ≤ 32 MiB', sample: '试用示例', stitch: '拼接',
@@ -20,7 +20,7 @@ const messages = {
     processing_error: '拼接失败，请换一组图片或查看诊断报告。',
   },
   en: {
-    title: 'Image Stitching', language: 'Language', left: 'Left', right: 'Right',
+    title: 'Image Stitching', language: 'Language', github: 'View repository on GitHub (opens in a new tab)', left: 'Left', right: 'Right',
     choose: 'Choose image', chooseLeft: 'Choose left image', chooseRight: 'Choose right image', swap: 'Swap images',
     leftPreview: 'Left image preview', rightPreview: 'Right image preview', panoramaPreview: 'Panorama preview', matchingPreview: 'Feature matches',
     limits: 'Left ≥ 800 px · Total ≤ 32 MiB', sample: 'Try example', stitch: 'Stitch',

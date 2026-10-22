@@ -19,6 +19,10 @@ header, main { max-width: 1000px; margin: auto; padding-inline: 32px; }
 header { display: flex; align-items: center; justify-content: space-between; padding-block: 36px; gap: 16px; }
 h1 { display: flex; align-items: center; gap: 12px; margin: 0; font-size: 23px; font-weight: 600; letter-spacing: -.6px; }
 .logo { width: 27px; height: 27px; fill: none; stroke: var(--green); stroke-width: 1.6; }
+.header-actions { display: flex; align-items: center; gap: 14px; flex-shrink: 0; }
+.github-link { display: inline-flex; align-items: center; justify-content: center; gap: 7px; min-width: 36px; min-height: 36px; font-size: 13px; border-radius: 6px; }
+.github-link:hover { color: var(--green); background: #e8eee5; }
+.github-link svg { width: 19px; height: 19px; fill: currentColor; }
 .languages { display: flex; gap: 2px; padding: 3px; border: 1px solid var(--line); border-radius: 7px; flex-shrink: 0; }
 .languages button { border: 0; border-radius: 4px; padding: 7px 10px; background: transparent; color: var(--muted); font-size: 12px; }
 .languages button[aria-pressed="true"] { color: var(--green); background: #e8eee5; }
@@ -71,10 +75,12 @@ details[open] summary > :last-child { transform: rotate(45deg); }
 button:focus-visible, a:focus-visible, summary:focus-visible { outline: 2px solid #76957e; outline-offset: 4px; }
 @media (max-width: 600px) {
   header, main { padding-inline: 20px; }
-  header { padding-block: 26px; }
+  header { padding-block: 26px; flex-wrap: wrap; }
   h1 { font-size: 19px; gap: 8px; }
   .logo { width: 23px; height: 23px; }
   .languages button { padding: 7px 8px; }
+  .header-actions { gap: 6px; margin-left: auto; }
+  .github-link span { display: none; }
   .inputs { gap: 14px; }
   .upload { height: 205px; }
   .card-label { padding: 14px; }
