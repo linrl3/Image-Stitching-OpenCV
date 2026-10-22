@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "image-stitching-opencv"
+version = "0.1.0"
+description = "Two-image stitching using SIFT, homography and weighted blending"
+readme = "README.md"
+requires-python = ">=3.10"
+license = "MIT"
+dependencies = [
+    "numpy>=1.26,<3",
+    "opencv-python-headless>=4.10,<5",
+]
+
+[project.scripts]
+image-stitching = "Image_Stitching:cli"
+
+[tool.setuptools]
+py-modules = ["Image_Stitching"]
