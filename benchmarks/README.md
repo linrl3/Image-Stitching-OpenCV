@@ -95,5 +95,6 @@ sample always computes from the original-size photos. To measure that workload,
 use `--scales 1`; allow several GiB of available memory.
 
 Re-run on the same hardware and dependencies before drawing conclusions about a
-change. CI saves half-size and original-size observations to its regression artifact without
-enforcing timing or memory thresholds on shared runners.
+change. CI saves half-size, original-size and repeated web-request observations
+to its regression artifact without enforcing timing or memory thresholds on
+shared runners.

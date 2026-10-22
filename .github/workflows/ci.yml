@@ -55,6 +55,11 @@ jobs:
           uv run --locked --all-extras image-stitching-benchmark
           images/q11.jpg images/q22.jpg --scales .5 1 --repeats 1
           --output output/regression/benchmark.json
+      - name: Record full web memory sample
+        if: matrix.os == 'ubuntu-latest' && matrix.python-version == '3.12'
+        run: >-
+          uv run --locked --all-extras python benchmarks/web_memory.py
+          --output output/regression/web-memory.json
       - name: Upload regression previews and reports
         if: always()
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2

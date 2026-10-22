@@ -218,7 +218,8 @@ dispatches from the GitHub Actions tab. It uses uv 0.9.17 and checks:
 - Installation of the wheel with locked runtime dependencies into a clean
   environment, followed by CLI and computation checks outside the source checkout.
 - Installation of web extras and verification of packaged templates/static assets.
-- The original-size web sample and half-size/original-size performance samples on Linux/Python 3.12.
+- The original-size web sample, half-size/original-size performance samples, and
+  repeated web-request memory measurements on Linux/Python 3.12.
 
 Successful runs provide the wheel and source archive as a `python-distributions`
 artifact, available for 14 days from the run page. Regression previews and JSON
