@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>拼接工作台 · Image Stitching</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <script src="{{ url_for('static', filename='app.js') }}" defer></script>
+</head>
+<body>
+  <header><a class="brand" href="/" aria-label="拼接工作台首页"><span class="mark">▧</span> 拼接工作台 <span class="brand-en">IMAGE STITCHING</span></a><span class="local"><i></i> 本地运行</span></header>
+  <main>
+    <section class="intro"><div><p class="eyebrow">把相邻的视野，连成一张图</p><h1>从两张照片开始。</h1><p class="sub">选择有重叠区域的左右照片，预览全景与匹配结果。图片只在这台电脑上处理。</p></div><span class="step">01 / 选择图片</span></section>
+    <form id="stitch-form">
+      <div class="inputs">
+        <label class="upload" id="left-card"><span class="card-top"><b>左侧照片</b><span>参考图 · 宽度至少 800 px</span></span><input id="image1" name="image1" type="file" accept="image/*" aria-label="选择左侧照片"><span class="placeholder"><span class="upload-icon">＋</span><b>选择左侧照片</b><small>JPEG、PNG 等常见图片格式</small></span><img id="preview1" alt="左侧照片预览" hidden><span class="filename" id="filename1">尚未选择</span></label>
+        <label class="upload" id="right-card"><span class="card-top"><b>右侧照片</b><span>与左图有重叠区域</span></span><input id="image2" name="image2" type="file" accept="image/*" aria-label="选择右侧照片"><span class="placeholder"><span class="upload-icon">＋</span><b>选择右侧照片</b><small>两张图片合计不超过 32 MiB</small></span><img id="preview2" alt="右侧照片预览" hidden><span class="filename" id="filename2">尚未选择</span></label>
+      </div>
+      <div class="toolbar"><div class="options"><label class="check"><input id="matching" type="checkbox" checked> 生成特征匹配图</label><button class="text-button" id="swap" type="button">交换左右</button></div><div class="actions">{% if sample_available %}<button class="secondary" id="sample" type="button">试用建筑示例 · 原尺寸</button>{% endif %}<button class="primary" id="submit" type="submit" disabled>开始拼接 <span>↗</span></button></div></div>
+    </form>
+    <div id="status" role="status" aria-live="polite">准备就绪，选择两张图片后即可开始。</div>
+    <section class="results" id="results" hidden>
+      <div class="section-title"><div><p class="eyebrow">02 / 拼接结果</p><h2>更完整的视野。</h2></div><div class="downloads"><a id="download-panorama" class="secondary" download>下载全景 PNG ↓</a><a id="download-report" class="text-button" download>诊断报告 JSON</a></div></div>
+      <div class="tabs" role="tablist" aria-label="结果预览"><button id="panorama-tab" type="button" class="tab active" role="tab" aria-selected="true" aria-controls="result-panel">全景图</button><button id="matching-tab" type="button" class="tab" role="tab" aria-selected="false" aria-controls="result-panel">特征匹配</button><span id="output-size"></span></div>
+      <div id="result-panel" class="viewer" role="tabpanel" aria-labelledby="panorama-tab"><img id="result-image" alt="拼接全景预览"></div>
+      <p id="geometry-note" class="note" hidden>部分变换后的内容超出当前固定画布，边缘可能被裁去。可尝试更换图片顺序或拍摄位置。</p>
+      <div class="metrics"><div><span>通过筛选的匹配</span><strong id="metric-matches">—</strong></div><div><span>RANSAC 内点比例</span><strong id="metric-ratio">—</strong></div><div><span>内点误差中位数</span><strong id="metric-error">—</strong></div><div><span>拼接计算耗时</span><strong id="metric-time">—</strong></div></div>
+    </section>
+    <section id="diagnostics" class="diagnostics" hidden><details><summary>查看处理阶段与诊断详情 <span>↓</span></summary><a id="download-diagnostics" class="text-button" download>下载诊断报告 JSON ↓</a><div id="stage-times"></div><pre id="report-text"></pre></details></section>
+    <footer><span>IMAGE STITCHING / LOCAL WORKSPACE</span><p>每次处理一组照片，仅保留最近一次成功结果。关闭服务后清空。当前更适合纹理清晰、有足够重叠的横向照片。</p></footer>
+  </main>
+</body>
+</html>

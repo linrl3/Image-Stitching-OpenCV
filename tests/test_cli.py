@@ -111,7 +111,7 @@ class CommandLineTests(unittest.TestCase):
             read_image(corrupt)
 
     def test_unsupported_output_fails_before_stitching(self):
-        with patch.object(Image_Stitching, 'blending') as blend:
+        with patch('stitching.io.stitch') as blend:
             with self.assertRaisesRegex(ValueError, 'Unsupported output'):
                 main(
                     self.input, self.input, self.root / 'output.invalid',

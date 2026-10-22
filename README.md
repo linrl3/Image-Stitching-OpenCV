@@ -56,13 +56,95 @@ uv run image-stitching images/q11.jpg images/q22.jpg \
 with status 0 on success, 1 for image processing or file errors, and 2 for invalid
 arguments. Errors are printed to stderr.
 
-The Python API remains available:
+Save a machine-readable diagnostic report alongside the panorama:
+
+```sh
+uv run image-stitching images/q11.jpg images/q22.jpg \
+  -o output/panorama.png --no-matching --report output/report.json
+```
+
+Reports include input/output sizes, dependency versions, parameters, feature and
+match counts, RANSAC inliers, reprojection errors, the homography, canvas bounds,
+and per-stage timings. Processing failures produce partial reports with an error
+code, stage and message. Path collisions are rejected before any file is written.
+Metrics describe the fitted geometry; they are not a visual quality score and do
+not change the algorithm's acceptance thresholds.
+
+## Python API
+
+The computation API accepts uint8 BGR NumPy arrays, leaves inputs unchanged, and
+does no file I/O or automatic resizing:
+
+```python
+import cv2
+from stitching import StitchConfig, StitchingError, stitch
+
+left = cv2.imread("images/q11.jpg")
+right = cv2.imread("images/q22.jpg")
+try:
+    result = stitch(left, right, StitchConfig(), include_matching=True)
+    panorama = result.panorama          # Original float64 output
+    homography = result.homography      # Maps right-image coordinates to the left
+    report = result.diagnostics         # JSON-serializable dict
+    matches = result.matching_image     # None unless requested
+except StitchingError as error:
+    print(error.diagnostics)
+```
+
+For file handling, `stitching.io.stitch_files()` returns the same result and saves
+the requested images/report. `stitching.io.to_uint8()` converts the float output
+with the same rounding/clipping used by the CLI. The original API remains available:
 
 ```python
 from Image_Stitching import main
 
 main("images/q11.jpg", "images/q22.jpg", "output/panorama.jpg", matching_output=None)
 ```
+
+## Local browser interface
+
+```sh
+uv run --locked --extra web image-stitching-web
+```
+
+Open **http://127.0.0.1:7860**. Choose two images, swap their order if needed, then
+stitch and inspect the panorama, feature matches and diagnostic metrics. Download
+the full-resolution PNG and JSON report; failure reports can also be downloaded
+from the diagnostic details. Use `--port 7861` to choose another port.
+
+The server binds only to loopback, processes on your computer and requires no
+external frontend services. It handles one stitch at a time and retains only the
+latest successful result in memory; starting another successful stitch invalidates
+older download URLs. Stopping the server clears results. Uploads are limited to
+32 MiB per request and 12 million pixels per image.
+
+In a repository checkout, **试用建筑示例 · 原尺寸** runs `q11.jpg` and `q22.jpg` at
+their original 2448×3264 size. Only display previews are reduced. Resizing the
+inputs changes feature matches and the relative width of the fixed 800-pixel
+blend, so a half-size computation is not an equivalent preview of the full-size
+result. Historic OpenCV versions may produce slightly different output geometry.
+The sample photos are not bundled into the wheel.
+
+## Performance measurements
+
+```sh
+uv run --locked --extra benchmark image-stitching-benchmark \
+  images/q11.jpg images/q22.jpg --scales .5 .75 --repeats 3 \
+  --output output/benchmark.json
+```
+
+Each repetition runs in a fresh process. The report records per-stage wall time,
+sampled process RSS (including OpenCV/native allocations), input checksums and
+environment details. `--scales` explicitly resizes inputs for measurement only;
+the CLI and web interface keep original input dimensions. Use `--scales 1` for an
+original-size measurement. Matching visualization is disabled during benchmarks.
+
+Version 0.2 releases blending masks as soon as they have been used, preserving the
+float64 arithmetic. In the recorded half-size comparison, maximum sampled RSS
+fell from 1.08 GiB to 0.85 GiB (about 21%), while compute time remained similar.
+Raw panorama pixels and encoded JPEG hashes were identical in all six comparison
+runs. These are local observations, not performance guarantees. See the
+[measurement details and recorded reports](benchmarks/README.md).
 
 ## Current algorithm constraints
 
@@ -84,12 +166,21 @@ stitching calculations.
 
 ## Development
 
-Run the CLI, file handling and failure-path tests with the standard library test
-runner:
+Install optional dependencies to run the complete suite with the standard library
+test runner:
 
 ```sh
-uv run python -m unittest discover -s tests -v
+uv sync --locked --all-extras
+uv run --locked --all-extras python -m unittest discover -s tests -v
 ```
+
+Tests cover known translations, low overlap, brightness differences, the real
+building pair, CLI/error reports, the computation API, web uploads/downloads,
+request limits and benchmark workers. Set `STITCHING_FULL_SAMPLE=1` to additionally
+compare the original-size web sample with the repository's reference image.
+Set `STITCHING_ARTIFACT_DIR=output/regression` to save regression previews/reports.
+The regular suite uses half-size building inputs to keep resource use modest;
+cross-platform assertions use geometric tolerances instead of JPEG byte equality.
 
 After intentionally changing dependencies, run `uv lock` and commit both
 `pyproject.toml` and `uv.lock`. For a reproducible environment, use
@@ -100,22 +191,27 @@ After intentionally changing dependencies, run `uv lock` and commit both
 The [CI workflow](.github/workflows/ci.yml) runs on pushes, pull requests and manual
 dispatches from the GitHub Actions tab. It uses uv 0.9.17 and checks:
 
-- Locked dependency installation, the test suite and the installed CLI on Linux
+- Locked dependency installation with all extras, the test suite and the installed CLI on Linux
   with Python 3.10, 3.12 and 3.14, and on macOS and Windows with Python 3.12.
 - Source distribution and wheel builds after all test jobs pass.
 - Installation of the wheel with locked runtime dependencies into a clean
-  environment, followed by a CLI check outside the source checkout.
+  environment, followed by CLI and computation checks outside the source checkout.
+- Installation of web extras and verification of packaged templates/static assets.
+- The original-size web sample and a performance sample on Linux/Python 3.12.
 
 Successful runs provide the wheel and source archive as a `python-distributions`
-artifact, available for 14 days from the run page. The workflow does not publish
+artifact, available for 14 days from the run page. Regression previews and JSON
+reports are saved in separate artifacts for each test environment. Benchmark
+results are recorded without a timing threshold because shared runners vary.
+The workflow does not publish
 to PyPI or deploy a service.
 
 To reproduce the primary checks locally:
 
 ```sh
-uv sync --locked
-uv run --locked python -m unittest discover -s tests -v
-uv run --locked image-stitching --help
+uv sync --locked --all-extras
+uv run --locked --all-extras python -m unittest discover -s tests -v
+uv run --locked --all-extras image-stitching --help
 uv build --no-sources
 ```
 

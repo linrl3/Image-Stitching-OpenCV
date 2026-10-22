@@ -1,0 +1,642 @@
+{
+  "schema_version": 1,
+  "measurement": {
+    "memory": "Fresh worker process RSS, sampled every 10 ms; short peaks may be missed.",
+    "timing": "Per-stage wall time; process_wall_seconds also includes interpreter startup.",
+    "matching_visualization": false,
+    "repeats": 3
+  },
+  "summary": [
+    {
+      "scale": 0.5,
+      "successful_runs": 3,
+      "median_compute_seconds": 0.5336013750056736,
+      "max_sampled_peak_rss_bytes": 938639360
+    },
+    {
+      "scale": 0.75,
+      "successful_runs": 3,
+      "median_compute_seconds": 1.326922917040065,
+      "max_sampled_peak_rss_bytes": 1864663040
+    }
+  ],
+  "runs": [
+    {
+      "schema_version": 1,
+      "status": "success",
+      "environment": {
+        "python": "3.12.12",
+        "opencv": "4.14.0",
+        "numpy": "2.5.4",
+        "platform": "macOS-27.0.1-arm64-arm-64bit",
+        "opencv_threads": 12
+      },
+      "config": {
+        "ratio": 0.85,
+        "min_match": 10,
+        "smoothing_window_size": 800,
+        "ransac_reprojection_threshold": 5.0
+      },
+      "timings_seconds": {
+        "features": 0.22258062497712672,
+        "matching": 0.009645083046052605,
+        "homography": 0.002610374998766929,
+        "diagnostics": 0.007915207999758422,
+        "blend_left": 0.053040541999507695,
+        "warp": 0.004606208007317036,
+        "blend_right": 0.033129332994576544,
+        "crop": 0.36067116603953764,
+        "compute_total": 0.6945533749531023,
+        "read": 0.049593333969824016,
+        "resize": 0.00501337501918897,
+        "encode": 0.011204625014215708,
+        "worker_total": 0.7604577919701114
+      },
+      "inputs": [
+        {
+          "width": 1224,
+          "height": 1632,
+          "dtype": "uint8"
+        },
+        {
+          "width": 1224,
+          "height": 1632,
+          "dtype": "uint8"
+        }
+      ],
+      "features": {
+        "image1": 2559,
+        "image2": 1303
+      },
+      "matches": {
+        "knn_queries": 2559,
+        "ratio_passed": 399
+      },
+      "registration": {
+        "homography_image2_to_image1": [
+          [
+            0.6769758121795076,
+            0.03270360329033575,
+            585.5602170839435
+          ],
+          [
+            -0.2273401174617223,
+            0.9423827534180274,
+            58.80298266995033
+          ],
+          [
+            -0.0002664366577635351,
+            1.9725769737564596e-05,
+            1.0
+          ]
+        ],
+        "inliers": 164,
+        "inlier_ratio": 0.41102756892230574,
+        "median_inlier_error_px": 2.2724947929382324,
+        "p95_inlier_error_px": 4.236101150512695
+      },
+      "geometry": {
+        "canvas_width": 2448,
+        "canvas_height": 1632,
+        "warped_image2_bounds": [
+          585.5602416992188,
+          -325.6675109863281,
+          2098.556640625,
+          1867.37841796875
+        ],
+        "extends_beyond_canvas": true
+      },
+      "output": {
+        "width": 2096,
+        "height": 1632,
+        "dtype": "float64",
+        "crop_bounds": [
+          0,
+          0,
+          2096,
+          1632
+        ]
+      },
+      "scale": 0.5,
+      "repetition": 1,
+      "sampled_peak_rss_bytes": 935100416,
+      "process_wall_seconds": 0.9495431249961257
+    },
+    {
+      "schema_version": 1,
+      "status": "success",
+      "environment": {
+        "python": "3.12.12",
+        "opencv": "4.14.0",
+        "numpy": "2.5.4",
+        "platform": "macOS-27.0.1-arm64-arm-64bit",
+        "opencv_threads": 12
+      },
+      "config": {
+        "ratio": 0.85,
+        "min_match": 10,
+        "smoothing_window_size": 800,
+        "ransac_reprojection_threshold": 5.0
+      },
+      "timings_seconds": {
+        "features": 0.13655295904027298,
+        "matching": 0.005862540972884744,
+        "homography": 0.002570500015281141,
+        "diagnostics": 0.007645083009265363,
+        "blend_left": 0.025181083008646965,
+        "warp": 0.0031762089929543436,
+        "blend_right": 0.022407666954677552,
+        "crop": 0.3299288330017589,
+        "compute_total": 0.5336013750056736,
+        "read": 0.04638837499078363,
+        "resize": 0.001646541990339756,
+        "encode": 0.011985582998022437,
+        "worker_total": 0.5936944999848492
+      },
+      "inputs": [
+        {
+          "width": 1224,
+          "height": 1632,
+          "dtype": "uint8"
+        },
+        {
+          "width": 1224,
+          "height": 1632,
+          "dtype": "uint8"
+        }
+      ],
+      "features": {
+        "image1": 2559,
+        "image2": 1303
+      },
+      "matches": {
+        "knn_queries": 2559,
+        "ratio_passed": 399
+      },
+      "registration": {
+        "homography_image2_to_image1": [
+          [
+            0.6769758121795076,
+            0.03270360329033575,
+            585.5602170839435
+          ],
+          [
+            -0.2273401174617223,
+            0.9423827534180274,
+            58.80298266995033
+          ],
+          [
+            -0.0002664366577635351,
+            1.9725769737564596e-05,
+            1.0
+          ]
+        ],
+        "inliers": 164,
+        "inlier_ratio": 0.41102756892230574,
+        "median_inlier_error_px": 2.2724947929382324,
+        "p95_inlier_error_px": 4.236101150512695
+      },
+      "geometry": {
+        "canvas_width": 2448,
+        "canvas_height": 1632,
+        "warped_image2_bounds": [
+          585.5602416992188,
+          -325.6675109863281,
+          2098.556640625,
+          1867.37841796875
+        ],
+        "extends_beyond_canvas": true
+      },
+      "output": {
+        "width": 2096,
+        "height": 1632,
+        "dtype": "float64",
+        "crop_bounds": [
+          0,
+          0,
+          2096,
+          1632
+        ]
+      },
+      "scale": 0.5,
+      "repetition": 2,
+      "sampled_peak_rss_bytes": 935378944,
+      "process_wall_seconds": 0.7725740839960054
+    },
+    {
+      "schema_version": 1,
+      "status": "success",
+      "environment": {
+        "python": "3.12.12",
+        "opencv": "4.14.0",
+        "numpy": "2.5.4",
+        "platform": "macOS-27.0.1-arm64-arm-64bit",
+        "opencv_threads": 12
+      },
+      "config": {
+        "ratio": 0.85,
+        "min_match": 10,
+        "smoothing_window_size": 800,
+        "ransac_reprojection_threshold": 5.0
+      },
+      "timings_seconds": {
+        "features": 0.13875054195523262,
+        "matching": 0.004321250016801059,
+        "homography": 0.002241334004793316,
+        "diagnostics": 0.003994333033915609,
+        "blend_left": 0.021434375026728958,
+        "warp": 0.002933874959126115,
+        "blend_right": 0.019637791032437235,
+        "crop": 0.32321966602467,
+        "compute_total": 0.5167477499926463,
+        "read": 0.044018124986905605,
+        "resize": 0.0018875839887186885,
+        "encode": 0.011490416014567018,
+        "worker_total": 0.5742041670018807
+      },
+      "inputs": [
+        {
+          "width": 1224,
+          "height": 1632,
+          "dtype": "uint8"
+        },
+        {
+          "width": 1224,
+          "height": 1632,
+          "dtype": "uint8"
+        }
+      ],
+      "features": {
+        "image1": 2559,
+        "image2": 1303
+      },
+      "matches": {
+        "knn_queries": 2559,
+        "ratio_passed": 399
+      },
+      "registration": {
+        "homography_image2_to_image1": [
+          [
+            0.6769758121795076,
+            0.03270360329033575,
+            585.5602170839435
+          ],
+          [
+            -0.2273401174617223,
+            0.9423827534180274,
+            58.80298266995033
+          ],
+          [
+            -0.0002664366577635351,
+            1.9725769737564596e-05,
+            1.0
+          ]
+        ],
+        "inliers": 164,
+        "inlier_ratio": 0.41102756892230574,
+        "median_inlier_error_px": 2.2724947929382324,
+        "p95_inlier_error_px": 4.236101150512695
+      },
+      "geometry": {
+        "canvas_width": 2448,
+        "canvas_height": 1632,
+        "warped_image2_bounds": [
+          585.5602416992188,
+          -325.6675109863281,
+          2098.556640625,
+          1867.37841796875
+        ],
+        "extends_beyond_canvas": true
+      },
+      "output": {
+        "width": 2096,
+        "height": 1632,
+        "dtype": "float64",
+        "crop_bounds": [
+          0,
+          0,
+          2096,
+          1632
+        ]
+      },
+      "scale": 0.5,
+      "repetition": 3,
+      "sampled_peak_rss_bytes": 938639360,
+      "process_wall_seconds": 0.7383365830173716
+    },
+    {
+      "schema_version": 1,
+      "status": "success",
+      "environment": {
+        "python": "3.12.12",
+        "opencv": "4.14.0",
+        "numpy": "2.5.4",
+        "platform": "macOS-27.0.1-arm64-arm-64bit",
+        "opencv_threads": 12
+      },
+      "config": {
+        "ratio": 0.85,
+        "min_match": 10,
+        "smoothing_window_size": 800,
+        "ransac_reprojection_threshold": 5.0
+      },
+      "timings_seconds": {
+        "features": 0.38527787500061095,
+        "matching": 0.03314095799578354,
+        "homography": 0.008816874993499368,
+        "diagnostics": 0.003960042027756572,
+        "blend_left": 0.05143550003413111,
+        "warp": 0.0074961670325137675,
+        "blend_right": 0.07847700000274926,
+        "crop": 0.7644212089944631,
+        "compute_total": 1.3334067499963567,
+        "read": 0.05036166700301692,
+        "resize": 0.014008375001139939,
+        "encode": 0.026295082992874086,
+        "worker_total": 1.4241439999896102
+      },
+      "inputs": [
+        {
+          "width": 1836,
+          "height": 2448,
+          "dtype": "uint8"
+        },
+        {
+          "width": 1836,
+          "height": 2448,
+          "dtype": "uint8"
+        }
+      ],
+      "features": {
+        "image1": 7562,
+        "image2": 3808
+      },
+      "matches": {
+        "knn_queries": 7562,
+        "ratio_passed": 997
+      },
+      "registration": {
+        "homography_image2_to_image1": [
+          [
+            0.6483482408882819,
+            0.008295116867183408,
+            893.1921697562251
+          ],
+          [
+            -0.2428196263631913,
+            0.9105334250663225,
+            110.64836250142758
+          ],
+          [
+            -0.00019082162529381074,
+            2.4814607809312495e-06,
+            1.0
+          ]
+        ],
+        "inliers": 273,
+        "inlier_ratio": 0.27382146439317956,
+        "median_inlier_error_px": 0.7829390168190002,
+        "p95_inlier_error_px": 2.6546335220336914
+      },
+      "geometry": {
+        "canvas_width": 3672,
+        "canvas_height": 2448,
+        "warped_image2_bounds": [
+          893.1921997070312,
+          -515.92041015625,
+          3208.452392578125,
+          2888.12255859375
+        ],
+        "extends_beyond_canvas": true
+      },
+      "output": {
+        "width": 3209,
+        "height": 2448,
+        "dtype": "float64",
+        "crop_bounds": [
+          0,
+          0,
+          3209,
+          2448
+        ]
+      },
+      "scale": 0.75,
+      "repetition": 1,
+      "sampled_peak_rss_bytes": 1864663040,
+      "process_wall_seconds": 1.6505842080223374
+    },
+    {
+      "schema_version": 1,
+      "status": "success",
+      "environment": {
+        "python": "3.12.12",
+        "opencv": "4.14.0",
+        "numpy": "2.5.4",
+        "platform": "macOS-27.0.1-arm64-arm-64bit",
+        "opencv_threads": 12
+      },
+      "config": {
+        "ratio": 0.85,
+        "min_match": 10,
+        "smoothing_window_size": 800,
+        "ransac_reprojection_threshold": 5.0
+      },
+      "timings_seconds": {
+        "features": 0.3581677909824066,
+        "matching": 0.05023537500528619,
+        "homography": 0.014374834019690752,
+        "diagnostics": 0.0046168340486474335,
+        "blend_left": 0.062437792017590255,
+        "warp": 0.007585583021864295,
+        "blend_right": 0.0557156249997206,
+        "crop": 0.773300249944441,
+        "compute_total": 1.326922917040065,
+        "read": 0.05196283297846094,
+        "resize": 0.020488750014919788,
+        "encode": 0.038073375006206334,
+        "worker_total": 1.4375865829642862
+      },
+      "inputs": [
+        {
+          "width": 1836,
+          "height": 2448,
+          "dtype": "uint8"
+        },
+        {
+          "width": 1836,
+          "height": 2448,
+          "dtype": "uint8"
+        }
+      ],
+      "features": {
+        "image1": 7562,
+        "image2": 3808
+      },
+      "matches": {
+        "knn_queries": 7562,
+        "ratio_passed": 997
+      },
+      "registration": {
+        "homography_image2_to_image1": [
+          [
+            0.6483482408882819,
+            0.008295116867183408,
+            893.1921697562251
+          ],
+          [
+            -0.2428196263631913,
+            0.9105334250663225,
+            110.64836250142758
+          ],
+          [
+            -0.00019082162529381074,
+            2.4814607809312495e-06,
+            1.0
+          ]
+        ],
+        "inliers": 273,
+        "inlier_ratio": 0.27382146439317956,
+        "median_inlier_error_px": 0.7829390168190002,
+        "p95_inlier_error_px": 2.6546335220336914
+      },
+      "geometry": {
+        "canvas_width": 3672,
+        "canvas_height": 2448,
+        "warped_image2_bounds": [
+          893.1921997070312,
+          -515.92041015625,
+          3208.452392578125,
+          2888.12255859375
+        ],
+        "extends_beyond_canvas": true
+      },
+      "output": {
+        "width": 3209,
+        "height": 2448,
+        "dtype": "float64",
+        "crop_bounds": [
+          0,
+          0,
+          3209,
+          2448
+        ]
+      },
+      "scale": 0.75,
+      "repetition": 2,
+      "sampled_peak_rss_bytes": 1863401472,
+      "process_wall_seconds": 1.6420977920060977
+    },
+    {
+      "schema_version": 1,
+      "status": "success",
+      "environment": {
+        "python": "3.12.12",
+        "opencv": "4.14.0",
+        "numpy": "2.5.4",
+        "platform": "macOS-27.0.1-arm64-arm-64bit",
+        "opencv_threads": 12
+      },
+      "config": {
+        "ratio": 0.85,
+        "min_match": 10,
+        "smoothing_window_size": 800,
+        "ransac_reprojection_threshold": 5.0
+      },
+      "timings_seconds": {
+        "features": 0.33127595798578113,
+        "matching": 0.03586158301914111,
+        "homography": 0.009011832997202873,
+        "diagnostics": 0.0044007080141454935,
+        "blend_left": 0.07278637500712648,
+        "warp": 0.008871415979228914,
+        "blend_right": 0.08578745898557827,
+        "crop": 0.7759628749918193,
+        "compute_total": 1.32448720902903,
+        "read": 0.07735958299599588,
+        "resize": 0.03747999999905005,
+        "encode": 0.03287391702178866,
+        "worker_total": 1.4723461249959655
+      },
+      "inputs": [
+        {
+          "width": 1836,
+          "height": 2448,
+          "dtype": "uint8"
+        },
+        {
+          "width": 1836,
+          "height": 2448,
+          "dtype": "uint8"
+        }
+      ],
+      "features": {
+        "image1": 7562,
+        "image2": 3808
+      },
+      "matches": {
+        "knn_queries": 7562,
+        "ratio_passed": 997
+      },
+      "registration": {
+        "homography_image2_to_image1": [
+          [
+            0.6483482408882819,
+            0.008295116867183408,
+            893.1921697562251
+          ],
+          [
+            -0.2428196263631913,
+            0.9105334250663225,
+            110.64836250142758
+          ],
+          [
+            -0.00019082162529381074,
+            2.4814607809312495e-06,
+            1.0
+          ]
+        ],
+        "inliers": 273,
+        "inlier_ratio": 0.27382146439317956,
+        "median_inlier_error_px": 0.7829390168190002,
+        "p95_inlier_error_px": 2.6546335220336914
+      },
+      "geometry": {
+        "canvas_width": 3672,
+        "canvas_height": 2448,
+        "warped_image2_bounds": [
+          893.1921997070312,
+          -515.92041015625,
+          3208.452392578125,
+          2888.12255859375
+        ],
+        "extends_beyond_canvas": true
+      },
+      "output": {
+        "width": 3209,
+        "height": 2448,
+        "dtype": "float64",
+        "crop_bounds": [
+          0,
+          0,
+          3209,
+          2448
+        ]
+      },
+      "scale": 0.75,
+      "repetition": 3,
+      "sampled_peak_rss_bytes": 1856716800,
+      "process_wall_seconds": 1.8101436660508625
+    }
+  ],
+  "inputs": [
+    {
+      "path": "images/q11.jpg",
+      "sha256": "d842fd955ebee86a19b99addb6e6314130d70abb0ba1adf1bada2ca755d909d5"
+    },
+    {
+      "path": "images/q22.jpg",
+      "sha256": "99b9cc60973cb09d566d1c66518a332dca64cec8a5512ae9d6b02c8075c3990b"
+    }
+  ],
+  "recorded_at_utc": "2026-10-22T16:13:28.565560+00:00"
+}

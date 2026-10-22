@@ -8,3 +8,4 @@ dist/
 /panorama.jpg
 /matching.jpg
 /output/
+/.playwright-mcp/

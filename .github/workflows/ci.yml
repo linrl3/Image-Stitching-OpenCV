@@ -41,11 +41,28 @@ jobs:
           enable-cache: true
           cache-dependency-glob: uv.lock
       - name: Install locked dependencies
-        run: uv sync --locked
+        run: uv sync --locked --all-extras
       - name: Run tests
-        run: uv run --locked python -m unittest discover -s tests -v
+        env:
+          STITCHING_ARTIFACT_DIR: output/regression
+          STITCHING_FULL_SAMPLE: ${{ matrix.os == 'ubuntu-latest' && matrix.python-version == '3.12' && '1' || '' }}
+        run: uv run --locked --all-extras python -m unittest discover -s tests -v
       - name: Verify installed command
-        run: uv run --locked image-stitching --help
+        run: uv run --locked --all-extras image-stitching --help
+      - name: Record performance sample
+        if: matrix.os == 'ubuntu-latest' && matrix.python-version == '3.12'
+        run: >-
+          uv run --locked --all-extras image-stitching-benchmark
+          images/q11.jpg images/q22.jpg --scales .5 --repeats 1
+          --output output/regression/benchmark.json
+      - name: Upload regression previews and reports
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: regression-${{ matrix.os }}-py${{ matrix.python-version }}
+          path: output/regression/
+          if-no-files-found: warn
+          retention-days: 14
 
   build:
     name: Build and verify distributions
@@ -76,6 +93,30 @@ jobs:
           uv pip install --python "$wheel_python" --no-deps dist/*.whl
           cd "$RUNNER_TEMP"
           "$RUNNER_TEMP/wheel-smoke/bin/image-stitching" --help
+          "$wheel_python" - <<'PY'
+          import numpy as np
+          from stitching import stitch
+          from stitching.io import to_uint8
+          from Image_Stitching import Image_Stitching
+          image = np.random.default_rng(42).integers(0, 256, (96, 1000, 3), dtype=np.uint8)
+          np.testing.assert_array_equal(to_uint8(stitch(image, image).panorama), image)
+          PY
+      - name: Verify optional web assets in the installed wheel
+        shell: bash
+        run: |
+          wheel_python="$RUNNER_TEMP/wheel-smoke/bin/python"
+          uv export --locked --all-extras --no-emit-project --format requirements.txt \
+            --output-file "$RUNNER_TEMP/extras.txt" --quiet
+          uv pip install --python "$wheel_python" --require-hashes -r "$RUNNER_TEMP/extras.txt"
+          cd "$RUNNER_TEMP"
+          "$wheel_python" - <<'PY'
+          from stitching.web import create_app
+          client = create_app().test_client()
+          for path in ('/', '/static/style.css', '/static/app.js'):
+              with client.get(path) as response:
+                  assert response.status_code == 200, path
+                  assert len(response.data) > 100, path
+          PY
       - name: Upload distributions
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
