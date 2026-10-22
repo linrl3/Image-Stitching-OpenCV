@@ -1,6 +1,6 @@
 # Image-Stitching-OpenCV
 
-[![CI](https://github.com/linrl3/Image-Stitching-OpenCV/actions/workflows/ci.yml/badge.svg?branch=new)](https://github.com/linrl3/Image-Stitching-OpenCV/actions/workflows/ci.yml)
+[![CI](https://github.com/linrl3/Image-Stitching-OpenCV/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/linrl3/Image-Stitching-OpenCV/actions/workflows/ci.yml)
 
 Simple image stitching algorithm using SIFT, homography, KNN and RANSAC in Python.
 
@@ -122,18 +122,18 @@ uv build --no-sources
 ## Sample 
 
 ## Input images
-<img src="https://github.com/linrl3/Image-Stitching-OpenCV/blob/master/images/q11.jpg" width=300 height=400 >   <img src="https://github.com/linrl3/Image-Stitching-OpenCV/blob/master/images/q22.jpg" width=300 height=400 >
+<img src="https://github.com/linrl3/Image-Stitching-OpenCV/blob/main/images/q11.jpg" width=300 height=400 >   <img src="https://github.com/linrl3/Image-Stitching-OpenCV/blob/main/images/q22.jpg" width=300 height=400 >
 
 ## Matching
-![matching](https://github.com/linrl3/Image-Stitching-OpenCV/blob/master/images/matching.jpg)
+![matching](https://github.com/linrl3/Image-Stitching-OpenCV/blob/main/images/matching.jpg)
 
 ## Output image
-![pano](https://github.com/linrl3/Image-Stitching-OpenCV/blob/master/images/panorama.jpg)
+![pano](https://github.com/linrl3/Image-Stitching-OpenCV/blob/main/images/panorama.jpg)
 
 ## other examples
 
 Room:
-![room](https://github.com/linrl3/Image-Stitching-OpenCV/blob/master/images/room.jpg)
+![room](https://github.com/linrl3/Image-Stitching-OpenCV/blob/main/images/room.jpg)
 
 Another building: This is a stitching of three related images. It doesn't work so well. Trying to improve.
-![gym](https://github.com/linrl3/Image-Stitching-OpenCV/blob/master/images/gym.jpg)
+![gym](https://github.com/linrl3/Image-Stitching-OpenCV/blob/main/images/gym.jpg)
