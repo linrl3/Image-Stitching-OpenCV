@@ -53,7 +53,7 @@ jobs:
         if: matrix.os == 'ubuntu-latest' && matrix.python-version == '3.12'
         run: >-
           uv run --locked --all-extras image-stitching-benchmark
-          images/q11.jpg images/q22.jpg --scales .5 --repeats 1
+          images/q11.jpg images/q22.jpg --scales .5 1 --repeats 1
           --output output/regression/benchmark.json
       - name: Upload regression previews and reports
         if: always()

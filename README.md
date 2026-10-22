@@ -130,9 +130,12 @@ The sample photos are not bundled into the wheel.
 ### Vercel deployment
 
 Vercel supports Flask, but this local application needs deployment changes first.
-The original-size example produces a PNG of about 15.1 MB and used about 2.50 GiB
-peak sampled RSS in a local measurement. These conflict with the default function
-payload/memory budgets, and the current in-process result store cannot reliably
+The original-size example produces a PNG of about 15.1 MB. After memory
+optimization, local measurements reached about 2.30 GiB for the computation
+benchmark and 2.40 GiB for repeated web uploads/downloads. These still exceed the
+Hobby function memory budget locally; the target runtime needs its own measurement.
+The PNG exceeds the function payload limit even on paid plans, and the current
+in-process result store cannot reliably
 serve downloads across function instances. A practical option is to host the
 frontend on Vercel and run OpenCV in a separate container, with object storage for
 uploads/results. See the [deployment assessment](docs/vercel.md) for measurements,
@@ -152,11 +155,16 @@ environment details. `--scales` explicitly resizes inputs for measurement only;
 the CLI and web interface keep original input dimensions. Use `--scales 1` for an
 original-size measurement. Matching visualization is disabled during benchmarks.
 
-Version 0.2 releases blending masks as soon as they have been used, preserving the
-float64 arithmetic. In the recorded half-size comparison, maximum sampled RSS
-fell from 1.08 GiB to 0.85 GiB (about 21%), while compute time remained similar.
-Raw panorama pixels and encoded JPEG hashes were identical in all six comparison
-runs. These are local observations, not performance guarantees. See the
+Blending now broadcasts column weights and reuses one float64 panorama with at
+most 8 MiB of scratch space (or one row for unusually wide inputs). Cropping
+reduces the nonzero blue-channel mask along each axis instead of storing every
+pixel's coordinates. The formula, precision, canvas and crop bounds are unchanged.
+
+In a fresh original-size comparison, maximum sampled RSS fell from 3.01 GiB to
+2.30 GiB (about 24%), and median compute time from 3.18 s to 0.94 s. Repeated web
+uploads/downloads fell from 3.11 GiB to 2.40 GiB (about 23%). Original-size raw
+float64 pixels and encoded PNG bytes matched exactly. These are local observations,
+not performance guarantees. See the
 [measurement details and recorded reports](benchmarks/README.md).
 
 ## Current algorithm constraints
@@ -210,7 +218,7 @@ dispatches from the GitHub Actions tab. It uses uv 0.9.17 and checks:
 - Installation of the wheel with locked runtime dependencies into a clean
   environment, followed by CLI and computation checks outside the source checkout.
 - Installation of web extras and verification of packaged templates/static assets.
-- The original-size web sample and a performance sample on Linux/Python 3.12.
+- The original-size web sample and half-size/original-size performance samples on Linux/Python 3.12.
 
 Successful runs provide the wheel and source archive as a `python-distributions`
 artifact, available for 14 days from the run page. Regression previews and JSON

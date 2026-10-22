@@ -147,47 +147,57 @@ def register_images(img1, img2, config, report, *, include_matching=False, sift=
     return H, matching_image
 
 
-def create_mask(img1, img2, version, config):
-    height_panorama = img1.shape[0]
+def _blend_weights(img1, img2, version, config):
+    """One float64 weight per column; all rows and channels use the same values."""
     width_panorama = img1.shape[1] + img2.shape[1]
     offset = int(config.smoothing_window_size / 2)
     barrier = img1.shape[1] - offset
-    mask = np.zeros((height_panorama, width_panorama))
+    weights = np.zeros(width_panorama)
     if version == 'left_image':
-        mask[:, barrier - offset:barrier + offset] = np.tile(
-            np.linspace(1, 0, 2 * offset).T, (height_panorama, 1))
-        mask[:, :barrier - offset] = 1
+        weights[barrier - offset:barrier + offset] = np.linspace(1, 0, 2 * offset)
+        weights[:barrier - offset] = 1
     else:
-        mask[:, barrier - offset:barrier + offset] = np.tile(
-            np.linspace(0, 1, 2 * offset).T, (height_panorama, 1))
-        mask[:, barrier + offset:] = 1
-    return cv2.merge([mask, mask, mask])
+        weights[barrier - offset:barrier + offset] = np.linspace(0, 1, 2 * offset)
+        weights[barrier + offset:] = 1
+    return weights
+
+
+def create_mask(img1, img2, version, config):
+    # Preserve the legacy public API's writable, independent H x W x 3 array.
+    weights = _blend_weights(img1, img2, version, config)
+    return np.broadcast_to(weights[None, :, None], (img1.shape[0], weights.size, 3)).copy()
 
 
 def blend_images(img1, img2, H, config, report):
     height_panorama = img1.shape[0]
     width_panorama = img1.shape[1] + img2.shape[1]
     with timed(report, 'blend_left'):
-        panorama1 = np.zeros((height_panorama, width_panorama, 3))
-        mask1 = create_mask(img1, img2, 'left_image', config)
-        panorama1[:img1.shape[0], :img1.shape[1], :] = img1
-        panorama1 *= mask1
-        # Free masks immediately after use without changing any pixel calculations.
-        del mask1
+        result = np.zeros((height_panorama, width_panorama, 3))
+        weights = _blend_weights(img1, img2, 'left_image', config)
+        np.multiply(img1, weights[None, :img1.shape[1], None],
+                    out=result[:, :img1.shape[1], :])
     with timed(report, 'warp'):
         warped = cv2.warpPerspective(img2, H, (width_panorama, height_panorama))
     with timed(report, 'blend_right'):
-        mask2 = create_mask(img1, img2, 'right_image', config)
-        panorama2 = warped * mask2
-        del mask2, warped
-        result = panorama1 + panorama2
-        del panorama1, panorama2
+        weights = _blend_weights(img1, img2, 'right_image', config)
+        # Keep the original multiply-then-add order and float64 precision, with
+        # at most 8 MiB of scratch space (or one row for an unusually wide input).
+        block_rows = max(1, min(height_panorama, (8 * 1024 * 1024) // (width_panorama * 3 * 8)))
+        scratch = np.empty((block_rows, width_panorama, 3))
+        for start in range(0, height_panorama, block_rows):
+            stop = min(start + block_rows, height_panorama)
+            block = scratch[:stop - start]
+            np.multiply(warped[start:stop], weights[None, :, None], out=block)
+            np.add(result[start:stop], block, out=result[start:stop])
+        del warped, scratch, block
     with timed(report, 'crop'):
-        rows, cols = np.where(result[:, :, 0] != 0)
+        nonzero = result[:, :, 0] != 0
+        rows = np.flatnonzero(nonzero.any(axis=1))
         if rows.size == 0:
             fail(report, 'empty_crop', 'crop', 'The current cropping method found no valid output pixels.')
-        min_row, max_row = min(rows), max(rows) + 1
-        min_col, max_col = min(cols), max(cols) + 1
+        cols = np.flatnonzero(nonzero.any(axis=0))
+        min_row, max_row = rows[0], rows[-1] + 1
+        min_col, max_col = cols[0], cols[-1] + 1
         final = result[min_row:max_row, min_col:max_col, :]
         report['output'] = {
             'width': final.shape[1], 'height': final.shape[0], 'dtype': str(final.dtype),

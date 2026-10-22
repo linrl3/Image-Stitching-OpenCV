@@ -13,8 +13,8 @@ stitching and subsequent downloads work.
 | --- | --- | --- |
 | Uploads | The local limit is 32 MiB; the sample pair totals 3,641,533 bytes | Function request bodies are limited to 4.5 MB. The sample fits, but the advertised upload limit does not. |
 | Downloads | The original-size sample PNG is 15,107,570 bytes | The response exceeds the 4.5 MB function payload limit. Store large results outside the function and download directly. |
-| Memory | A fresh original-size benchmark sampled 2,683,994,112 bytes of peak RSS, about 2.50 GiB | Hobby functions have 2 GB; Pro/Enterprise allow up to 4 GB. Original-size processing needs target-runtime testing and enough memory headroom. |
-| Runtime | The same local run spent about 3.06 seconds computing | Time is not the observed bottleneck locally. Fluid Compute allows 300 seconds on Hobby; this is not a deployed-runtime benchmark. |
+| Memory | After optimization, three fresh original-size computation runs reached about 2.30 GiB; three consecutive web requests reached about 2.40 GiB | Hobby functions have 2 GB; Pro/Enterprise allow up to 4 GB. These local results still exceed Hobby's budget; target-runtime testing is needed before deciding whether a paid compute tier is necessary. |
+| Runtime | Median compute time was about 0.94 seconds in the fresh-process comparison | Time is not the observed bottleneck locally. Fluid Compute allows 300 seconds on Hobby; this is not a deployed-runtime benchmark. |
 | Result state | `create_app()` retains the latest encoded result in one Python process | A download can reach a different instance or run after state is discarded. Use per-job shared storage. |
 | Static assets | Flask currently serves packaged CSS/JS | Vercel's Flask integration expects static files under `public/`. |
 
@@ -23,18 +23,22 @@ and [Flask deployment guide](https://vercel.com/docs/frameworks/backend/flask).
 The result-state issue follows from this repository's process-local store and
 Vercel's [function scaling model](https://vercel.com/docs/functions).
 
-The memory measurement is one macOS/arm64 run with the locked dependencies and
-matching visualization disabled, including native OpenCV allocations. RSS was
-sampled every 10 ms; short peaks can be missed. Linux CPU/threading and the full
-web pipeline will differ. This indicates a resource risk, not a measured Vercel
-out-of-memory failure. The raw report is
+Measurements use macOS/arm64 and the locked dependencies, including native OpenCV
+allocations. RSS was sampled every 10 ms; short peaks can be missed. The core
+benchmark disables matching visualization; the separate web benchmark enables
+it and exercises uploads, encoding, retained results and downloads. Linux
+CPU/threading and allocators will differ. This indicates a resource risk, not a
+measured Vercel out-of-memory failure. Before/after measurements and exact-output
+checks are in [memory-optimization.json](../benchmarks/memory-optimization.json),
+with reproduction commands in [benchmarks/README.md](../benchmarks/README.md).
+The earlier single-run 2.50 GiB observation is retained in
 [vercel-original-size.json](../benchmarks/vercel-original-size.json).
 
 Reproduce the compute measurement:
 
 ```sh
 uv run --locked --extra benchmark image-stitching-benchmark \
-  images/q11.jpg images/q22.jpg --scales 1 --repeats 1 \
+  images/q11.jpg images/q22.jpg --scales 1 --repeats 3 \
   --output output/vercel-assessment.json
 ```
 

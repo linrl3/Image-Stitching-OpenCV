@@ -1,0 +1,561 @@
+{
+  "schema_version": 1,
+  "reference_commit": "e1fa54bddd7d58d6745f5a9eee4fcc36e4c765ab",
+  "reference_core_sha256": "c2e9c5173bddfb2d5743bca317b659be5441c423050a828bf3e8af54281861fc",
+  "optimized_core_sha256": "ae390b68386daaee5fa4709c1c32ced41f28bc8e8fd904da17db7d7b8db85de0",
+  "recorded_at_utc": "2026-10-22T16:52:13.974430+00:00",
+  "environment": {
+    "python": "3.12.12",
+    "opencv": "4.14.0",
+    "numpy": "2.5.4",
+    "platform": "macOS-27.0.1-arm64-arm-64bit",
+    "opencv_threads": 12
+  },
+  "inputs": [
+    {
+      "path": "images/q11.jpg",
+      "sha256": "d842fd955ebee86a19b99addb6e6314130d70abb0ba1adf1bada2ca755d909d5"
+    },
+    {
+      "path": "images/q22.jpg",
+      "sha256": "99b9cc60973cb09d566d1c66518a332dca64cec8a5512ae9d6b02c8075c3990b"
+    }
+  ],
+  "measurement": {
+    "scale": 1,
+    "core": "Three fresh processes per version, matching disabled, existing benchmark CLI; RSS sampled every 10 ms.",
+    "web": "One fresh process per version, three sequential original-size multipart uploads via Flask test client, matching enabled, downloading every result; RSS sampled every 10 ms.",
+    "parity": "Separate full-size seeded runs with matching enabled; row-wise float64 hashing avoids a full panorama copy.",
+    "caveat": "Local macOS measurements, not Vercel. Short RSS peaks may be missed; allocator retention and scheduling vary."
+  },
+  "summary": {
+    "before": {
+      "core_peak_rss_bytes": 3235495936,
+      "core_median_compute_seconds": 3.1780042499885894,
+      "web_peak_rss_bytes": 3336355840,
+      "web_median_request_seconds": 3.0261972920270637
+    },
+    "after": {
+      "core_peak_rss_bytes": 2472886272,
+      "core_median_compute_seconds": 0.9386107500176877,
+      "web_peak_rss_bytes": 2574303232,
+      "web_median_request_seconds": 1.5371774160303175
+    }
+  },
+  "core_runs": {
+    "before": [
+      {
+        "repetition": 1,
+        "sampled_peak_rss_bytes": 2587164672,
+        "process_wall_seconds": 3.873260708001908,
+        "timings_seconds": {
+          "features": 0.8632170829805546,
+          "matching": 0.24372991599375382,
+          "homography": 0.019131665991153568,
+          "diagnostics": 0.005398667010013014,
+          "blend_left": 0.3126512919552624,
+          "warp": 0.018675333994906396,
+          "blend_right": 0.2074166659731418,
+          "crop": 1.8063191249966621,
+          "compute_total": 3.4806653329869732,
+          "read": 0.06983633304480463,
+          "resize": 1.2909877113997936e-06,
+          "encode": 0.0764969169977121,
+          "worker_total": 3.6274198750033975
+        },
+        "output": {
+          "width": 4287,
+          "height": 3264,
+          "dtype": "float64",
+          "crop_bounds": [
+            0,
+            0,
+            4287,
+            3264
+          ]
+        }
+      },
+      {
+        "repetition": 2,
+        "sampled_peak_rss_bytes": 3229843456,
+        "process_wall_seconds": 3.52502745797392,
+        "timings_seconds": {
+          "features": 0.6458132079569623,
+          "matching": 0.21563908300595358,
+          "homography": 0.01721199997700751,
+          "diagnostics": 0.008909958007279783,
+          "blend_left": 0.11676062498008832,
+          "warp": 0.015707333979662508,
+          "blend_right": 0.21656124998116866,
+          "crop": 1.6910282500321046,
+          "compute_total": 2.9401967499870807,
+          "read": 0.07766587502555922,
+          "resize": 1.3750395737588406e-06,
+          "encode": 0.0572382920072414,
+          "worker_total": 3.0752404580125585
+        },
+        "output": {
+          "width": 4287,
+          "height": 3264,
+          "dtype": "float64",
+          "crop_bounds": [
+            0,
+            0,
+            4287,
+            3264
+          ]
+        }
+      },
+      {
+        "repetition": 3,
+        "sampled_peak_rss_bytes": 3235495936,
+        "process_wall_seconds": 4.0891928329947405,
+        "timings_seconds": {
+          "features": 0.6308749580057338,
+          "matching": 0.2401222920161672,
+          "homography": 0.014657750027254224,
+          "diagnostics": 0.00644575001206249,
+          "blend_left": 0.10126754100201651,
+          "warp": 0.015621916973032057,
+          "blend_right": 0.1530047080013901,
+          "crop": 2.0153376669622958,
+          "compute_total": 3.1780042499885894,
+          "read": 0.06039033300476149,
+          "resize": 1.167005393654108e-06,
+          "encode": 0.08089687494793907,
+          "worker_total": 3.3193945409730077
+        },
+        "output": {
+          "width": 4287,
+          "height": 3264,
+          "dtype": "float64",
+          "crop_bounds": [
+            0,
+            0,
+            4287,
+            3264
+          ]
+        }
+      }
+    ],
+    "after": [
+      {
+        "repetition": 1,
+        "sampled_peak_rss_bytes": 2254848000,
+        "process_wall_seconds": 1.6191329159773886,
+        "timings_seconds": {
+          "features": 0.7434576249797828,
+          "matching": 0.182164957979694,
+          "homography": 0.012880166992545128,
+          "diagnostics": 0.006895707978401333,
+          "blend_left": 0.0648710000095889,
+          "warp": 0.013555542042013258,
+          "blend_right": 0.12001129100099206,
+          "crop": 0.01875699998345226,
+          "compute_total": 1.1631946669658646,
+          "read": 0.05025087500689551,
+          "resize": 9.160139597952366e-07,
+          "encode": 0.04748925002058968,
+          "worker_total": 1.2610050410148688
+        },
+        "output": {
+          "width": 4287,
+          "height": 3264,
+          "dtype": "float64",
+          "crop_bounds": [
+            0,
+            0,
+            4287,
+            3264
+          ]
+        }
+      },
+      {
+        "repetition": 2,
+        "sampled_peak_rss_bytes": 2472886272,
+        "process_wall_seconds": 1.2498965000268072,
+        "timings_seconds": {
+          "features": 0.5708885419880971,
+          "matching": 0.18402591696940362,
+          "homography": 0.01356345898238942,
+          "diagnostics": 0.004002208996098489,
+          "blend_left": 0.03972495801281184,
+          "warp": 0.012244290963280946,
+          "blend_right": 0.08207591698737815,
+          "crop": 0.031500875018537045,
+          "compute_total": 0.9386107500176877,
+          "read": 0.046414208016358316,
+          "resize": 5.00003807246685e-07,
+          "encode": 0.053943416045513004,
+          "worker_total": 1.0390366250067018
+        },
+        "output": {
+          "width": 4287,
+          "height": 3264,
+          "dtype": "float64",
+          "crop_bounds": [
+            0,
+            0,
+            4287,
+            3264
+          ]
+        }
+      },
+      {
+        "repetition": 3,
+        "sampled_peak_rss_bytes": 2465038336,
+        "process_wall_seconds": 1.2017130829626694,
+        "timings_seconds": {
+          "features": 0.5554219170007855,
+          "matching": 0.1797647909843363,
+          "homography": 0.01279049995355308,
+          "diagnostics": 0.004141665995121002,
+          "blend_left": 0.041666666977107525,
+          "warp": 0.010201915982179344,
+          "blend_right": 0.09178983303718269,
+          "crop": 0.024663250020239502,
+          "compute_total": 0.9210544580128044,
+          "read": 0.045701790950261056,
+          "resize": 6.25033862888813e-07,
+          "encode": 0.047486750001553446,
+          "worker_total": 1.014307249977719
+        },
+        "output": {
+          "width": 4287,
+          "height": 3264,
+          "dtype": "float64",
+          "crop_bounds": [
+            0,
+            0,
+            4287,
+            3264
+          ]
+        }
+      }
+    ]
+  },
+  "web_runs": {
+    "before": [
+      {
+        "request": 1,
+        "timings_seconds": {
+          "blend_left": 0.30103024997515604,
+          "blend_right": 0.17429354198975489,
+          "compute_total": 3.336874665983487,
+          "crop": 1.572111333021894,
+          "diagnostics": 0.009587459033355117,
+          "encode": 0.4238537499913946,
+          "features": 0.9936075000441633,
+          "homography": 0.015495333005674183,
+          "matching": 0.19785941700683907,
+          "matching_visualization": 0.05516020901268348,
+          "read": 0.04887695802608505,
+          "warp": 0.01640612503979355,
+          "web_request_total": 3.905043166014366
+        },
+        "output": {
+          "crop_bounds": [
+            0,
+            0,
+            4287,
+            3264
+          ],
+          "dtype": "float64",
+          "height": 3264,
+          "width": 4287
+        },
+        "files": {
+          "input1.jpg": {
+            "bytes": 202145,
+            "sha256": "113c1b0ccef6f736165e8178d2ee7b6f9bc44c9762ffbc949caeadf02b29c766"
+          },
+          "input2.jpg": {
+            "bytes": 186235,
+            "sha256": "6f65edfdbd04136c9fdabd93267cbdcf6fb68cecd60abc451973a0047fe35284"
+          },
+          "matching.jpg": {
+            "bytes": 5362782,
+            "sha256": "03cd829661b37431b08aae1b76364ed866cce76089e8668c23d24a79f787cdb4"
+          },
+          "panorama.png": {
+            "bytes": 15107570,
+            "sha256": "c08b3502c4c9ce1f869becfc8a9b1594fa99977d6e35be278201bae7818afa1f"
+          },
+          "report.json": {
+            "bytes": 2182,
+            "sha256": "a22e2cd02b1660a1957539635b66e8dda98ae4ec0eb04aafd0409aa536fd7a90"
+          }
+        }
+      },
+      {
+        "request": 2,
+        "timings_seconds": {
+          "blend_left": 0.04111341602401808,
+          "blend_right": 0.06337741599418223,
+          "compute_total": 2.5907819580170326,
+          "crop": 1.4334266250371002,
+          "diagnostics": 0.0005157500272616744,
+          "encode": 0.3794295000261627,
+          "features": 0.7162913749925792,
+          "homography": 0.014945584000088274,
+          "matching": 0.26959091698518023,
+          "matching_visualization": 0.035259999975096434,
+          "read": 0.0558526249951683,
+          "warp": 0.01531175000127405,
+          "web_request_total": 3.0261972920270637
+        },
+        "output": {
+          "crop_bounds": [
+            0,
+            0,
+            4287,
+            3264
+          ],
+          "dtype": "float64",
+          "height": 3264,
+          "width": 4287
+        },
+        "files": {
+          "input1.jpg": {
+            "bytes": 202145,
+            "sha256": "113c1b0ccef6f736165e8178d2ee7b6f9bc44c9762ffbc949caeadf02b29c766"
+          },
+          "input2.jpg": {
+            "bytes": 186235,
+            "sha256": "6f65edfdbd04136c9fdabd93267cbdcf6fb68cecd60abc451973a0047fe35284"
+          },
+          "matching.jpg": {
+            "bytes": 5362782,
+            "sha256": "03cd829661b37431b08aae1b76364ed866cce76089e8668c23d24a79f787cdb4"
+          },
+          "panorama.png": {
+            "bytes": 15107570,
+            "sha256": "c08b3502c4c9ce1f869becfc8a9b1594fa99977d6e35be278201bae7818afa1f"
+          },
+          "report.json": {
+            "bytes": 2186,
+            "sha256": "9c478d21fa81746ffa52b35da4b9ef0d1a810bf7409901f833cb7f8ddc9e8329"
+          }
+        }
+      },
+      {
+        "request": 3,
+        "timings_seconds": {
+          "blend_left": 0.0332832089625299,
+          "blend_right": 0.07504416594747454,
+          "compute_total": 2.2348474170430563,
+          "crop": 1.4099287920398638,
+          "diagnostics": 0.0002659590099938214,
+          "encode": 0.471630040963646,
+          "features": 0.4483336669509299,
+          "homography": 0.018445541965775192,
+          "matching": 0.20278170896926895,
+          "matching_visualization": 0.035334791988134384,
+          "read": 0.05217829201137647,
+          "warp": 0.01079779100837186,
+          "web_request_total": 2.7587547919829376
+        },
+        "output": {
+          "crop_bounds": [
+            0,
+            0,
+            4287,
+            3264
+          ],
+          "dtype": "float64",
+          "height": 3264,
+          "width": 4287
+        },
+        "files": {
+          "input1.jpg": {
+            "bytes": 202145,
+            "sha256": "113c1b0ccef6f736165e8178d2ee7b6f9bc44c9762ffbc949caeadf02b29c766"
+          },
+          "input2.jpg": {
+            "bytes": 186235,
+            "sha256": "6f65edfdbd04136c9fdabd93267cbdcf6fb68cecd60abc451973a0047fe35284"
+          },
+          "matching.jpg": {
+            "bytes": 5362782,
+            "sha256": "03cd829661b37431b08aae1b76364ed866cce76089e8668c23d24a79f787cdb4"
+          },
+          "panorama.png": {
+            "bytes": 15107570,
+            "sha256": "c08b3502c4c9ce1f869becfc8a9b1594fa99977d6e35be278201bae7818afa1f"
+          },
+          "report.json": {
+            "bytes": 2185,
+            "sha256": "646046d6a7a3e2a83918883eb417029cdd0e4250c906c13f3e008a44ebf18e45"
+          }
+        }
+      }
+    ],
+    "after": [
+      {
+        "request": 1,
+        "timings_seconds": {
+          "blend_left": 0.07741354097379372,
+          "blend_right": 0.11813141603488475,
+          "compute_total": 1.298501875018701,
+          "crop": 0.019220457994379103,
+          "diagnostics": 0.1464970000088215,
+          "encode": 0.4484784579835832,
+          "features": 0.6194708749535494,
+          "homography": 0.016374083003029227,
+          "matching": 0.2275289999670349,
+          "matching_visualization": 0.054998874955344945,
+          "read": 0.056555750023107976,
+          "warp": 0.018044167023617774,
+          "web_request_total": 1.8662021670024842
+        },
+        "output": {
+          "crop_bounds": [
+            0,
+            0,
+            4287,
+            3264
+          ],
+          "dtype": "float64",
+          "height": 3264,
+          "width": 4287
+        },
+        "files": {
+          "input1.jpg": {
+            "bytes": 202145,
+            "sha256": "113c1b0ccef6f736165e8178d2ee7b6f9bc44c9762ffbc949caeadf02b29c766"
+          },
+          "input2.jpg": {
+            "bytes": 186235,
+            "sha256": "6f65edfdbd04136c9fdabd93267cbdcf6fb68cecd60abc451973a0047fe35284"
+          },
+          "matching.jpg": {
+            "bytes": 5362782,
+            "sha256": "03cd829661b37431b08aae1b76364ed866cce76089e8668c23d24a79f787cdb4"
+          },
+          "panorama.png": {
+            "bytes": 15107570,
+            "sha256": "c08b3502c4c9ce1f869becfc8a9b1594fa99977d6e35be278201bae7818afa1f"
+          },
+          "report.json": {
+            "bytes": 2186,
+            "sha256": "2be3e2431068f78cb1181c12e6a797b24d84580626d937c29e072c2326786354"
+          }
+        }
+      },
+      {
+        "request": 2,
+        "timings_seconds": {
+          "blend_left": 0.0400495000067167,
+          "blend_right": 0.09021304099587724,
+          "compute_total": 0.9830536249792203,
+          "crop": 0.01151295902673155,
+          "diagnostics": 0.0003648330457508564,
+          "encode": 0.48743033298524097,
+          "features": 0.5171772919711657,
+          "homography": 0.020348959020338953,
+          "matching": 0.2190487920306623,
+          "matching_visualization": 0.07133870798861608,
+          "read": 0.06655525002861395,
+          "warp": 0.01162583299446851,
+          "web_request_total": 1.5371774160303175
+        },
+        "output": {
+          "crop_bounds": [
+            0,
+            0,
+            4287,
+            3264
+          ],
+          "dtype": "float64",
+          "height": 3264,
+          "width": 4287
+        },
+        "files": {
+          "input1.jpg": {
+            "bytes": 202145,
+            "sha256": "113c1b0ccef6f736165e8178d2ee7b6f9bc44c9762ffbc949caeadf02b29c766"
+          },
+          "input2.jpg": {
+            "bytes": 186235,
+            "sha256": "6f65edfdbd04136c9fdabd93267cbdcf6fb68cecd60abc451973a0047fe35284"
+          },
+          "matching.jpg": {
+            "bytes": 5362782,
+            "sha256": "03cd829661b37431b08aae1b76364ed866cce76089e8668c23d24a79f787cdb4"
+          },
+          "panorama.png": {
+            "bytes": 15107570,
+            "sha256": "c08b3502c4c9ce1f869becfc8a9b1594fa99977d6e35be278201bae7818afa1f"
+          },
+          "report.json": {
+            "bytes": 2186,
+            "sha256": "bbc70864d1a97d6fc87794a8a05b0dc9e6f7e6c1ce3b26125b2601ada9331185"
+          }
+        }
+      },
+      {
+        "request": 3,
+        "timings_seconds": {
+          "blend_left": 0.048185499967075884,
+          "blend_right": 0.08921204198850319,
+          "compute_total": 0.8115754579775967,
+          "crop": 0.010382584005128592,
+          "diagnostics": 0.0002245419891551137,
+          "encode": 0.3695476250140928,
+          "features": 0.37384125002427027,
+          "homography": 0.017703708028420806,
+          "matching": 0.21295137499691918,
+          "matching_visualization": 0.04375049995724112,
+          "read": 0.051972500048577785,
+          "warp": 0.01468462502816692,
+          "web_request_total": 1.233159791037906
+        },
+        "output": {
+          "crop_bounds": [
+            0,
+            0,
+            4287,
+            3264
+          ],
+          "dtype": "float64",
+          "height": 3264,
+          "width": 4287
+        },
+        "files": {
+          "input1.jpg": {
+            "bytes": 202145,
+            "sha256": "113c1b0ccef6f736165e8178d2ee7b6f9bc44c9762ffbc949caeadf02b29c766"
+          },
+          "input2.jpg": {
+            "bytes": 186235,
+            "sha256": "6f65edfdbd04136c9fdabd93267cbdcf6fb68cecd60abc451973a0047fe35284"
+          },
+          "matching.jpg": {
+            "bytes": 5362782,
+            "sha256": "03cd829661b37431b08aae1b76364ed866cce76089e8668c23d24a79f787cdb4"
+          },
+          "panorama.png": {
+            "bytes": 15107570,
+            "sha256": "c08b3502c4c9ce1f869becfc8a9b1594fa99977d6e35be278201bae7818afa1f"
+          },
+          "report.json": {
+            "bytes": 2190,
+            "sha256": "11ddcb047f0386b53dcb2d7e6af8d74429c39ed2d9481da7fac9259db6bb3f36"
+          }
+        }
+      }
+    ]
+  },
+  "parity": {
+    "pixels_sha256": "97ecb147a31dca7f49f9b61caf8edef3dd459385f2bec2f079695c763631935d",
+    "png_sha256": "c08b3502c4c9ce1f869becfc8a9b1594fa99977d6e35be278201bae7818afa1f",
+    "matching_sha256": "4d444aae9445f1d0d47bc674b759923e31392a38b7087900af7c8aff249258ab",
+    "shape": [
+      3264,
+      4287,
+      3
+    ],
+    "dtype": "float64",
+    "all_web_image_downloads_byte_identical": true
+  }
+}
